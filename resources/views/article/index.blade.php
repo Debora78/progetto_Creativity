@@ -3,11 +3,8 @@
     <section class="container-fluid p-5 bg-secondary-subtle text-center">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1 class="display-1">Welcome to Creativity</h1>
-                @if (session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
-                @endif
+                <h1 class="display-1">Tutti gli Articoli</h1>
+                
             </div>
         </div>
     </section>
@@ -33,9 +30,10 @@
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <p>Redatto il : {{ $article->created_at->format('d/m/Y') }} <br>
                                 da : {{ $article->user->name }}</p>
-                            <a href="{{route('article.show', $article)}}" class="btn btn-outline-secondary">Leggi
+                            <a href="{{{route('article.show', $article)}}" class="btn btn-outline-secondary">Leggi
                             </a>
                         </div>
+                        
                     </div>
                 </div>
                 

@@ -18,9 +18,11 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Display a listing of the resource.
      */
+    //!Questa funzione restituisce alla vista tutti gli articoli ordinati dal più recente
     public function index()
     {
-        //
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return view('article.index', compact('articles'));
     }
 
     /**
@@ -63,9 +65,10 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Display the specified resource.
      */
+    //La funzione show() ha il compito di ritornare la vista che conterrà il dettaglio di un singolo articolo.
     public function show(Article $article)
     {
-        //
+       return view('article.show', compact('article'));
     }
 
     /**
