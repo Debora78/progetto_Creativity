@@ -16,8 +16,11 @@ Route::controller(ArticleController::class)->group(function () {
     //!Questa Rotta gestisce i dati dell'utente e li salva nel DB
     Route::post('/article/store', 'store')->name('article.store');
 
-    //!Rotta di tipo get parametrica che accetta un parametro ciò l'articolo che l'utente vuole visualizzare
+    //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare
     Route::get('/article/show/{article}', 'show')->name('article.show');
+
+    //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare
+    Route::get('/article/category/{category}', 'byCategory')->name('article.byCategory');
 
 });
 

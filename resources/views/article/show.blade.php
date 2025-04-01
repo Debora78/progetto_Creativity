@@ -19,7 +19,7 @@
                 <div class="text-center">
                     <h2>{{ $article->subtitle }}</h2>
                     <p class="fs-5">Categoria:
-                        <a href="" class="text-capitalize text-muted fw-bold">{{ $article->category->name }}</a>
+                        <a href="{{ route('article.by-category', $article->category) }}" class="text-capitalize text-muted fw-bold">{{ $article->category->name }}</a>
                     </p>
                     <div class="text-muted my-3">
                         <p>Redatto il: {{ $article->created_at->format('d/m/Y') }} da: {{ $article->user->name }}</p>

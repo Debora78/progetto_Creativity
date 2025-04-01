@@ -22,7 +22,7 @@
                             <h5 class="card-title">{{ $article->title }}</h5>
                             <p class="card-subtitle">{{ $article->subtitle }}</p>
                             <p class="small text-muted">Categoria :
-                                <a href=""
+                                <a href="{{ route('article.by-category', $article->category) }}"
                                     class="text-capitalize text-muted">{{ $article->category->name }}">
                                 </a>
                             </p>
