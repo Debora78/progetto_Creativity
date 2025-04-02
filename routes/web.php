@@ -20,13 +20,9 @@ Route::controller(PublicController::class)->group(function () {
 
 //Raggruppo le rotte che hanno Article Controller
 Route::controller(ArticleController::class)->group(function () {
-    Route::get('/article/create', 'create')->name('article.create');
-
+   
     //!Rotta di tipo get per visualizzare tutti gli annunci inseriti
     Route::get('/article/index', 'index')->name('article.index');
-
-    //!Questa Rotta gestisce i dati dell'utente e li salva nel DB
-    Route::post('/article/store', 'store')->name('article.store');
 
     //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare
     Route::get('/article/show/{article}', 'show')->name('article.show');
@@ -38,6 +34,9 @@ Route::controller(ArticleController::class)->group(function () {
     Route::get('/article/user/{user}', 'byUser')->name('article.byUser');
 
 });
+
+   
+
 
 // Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
 
@@ -69,3 +68,10 @@ Route::middleware('revisor')->group(function () {
     Route::post('/revisor/{article}/undo', [RevisorController::class, 'undoArticle'])->name('revisor.undoArticle');
 });
 
+Route::middleware('writer')->group(function () {
+  //!Questa Rotta gestisce la creazione di un nuovo articolo  
+    Route::get('/article/create',[ArticleController::class, 'create'] )->name('article.create');
+ //!Questa Rotta gestisce i dati dell'utente e li salva nel DB
+ Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
+
+});
