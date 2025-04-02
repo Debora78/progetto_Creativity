@@ -35,6 +35,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('article.create') }}">Inserisci un Articolo</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('careers') }}">Lavora con noi</a>
+                    </li>
+
                 @endauth
 
                 {{-- Ciò che vedrà l'utente ospite cioè i tasti che portano alla pagina di login  e alla pagina di register --}}

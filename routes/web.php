@@ -4,9 +4,19 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
+//Raggruppo le rotte che hanno Public Controller
+Route::controller(PublicController::class)->group(function () {
+//!rotta che riporta alla homepage
+    Route::get('/','hompage')->name('homepage'); 
+//!rotta che riporta alla pagina careers per scegliere il ruolo per cui fare richiesta
+    Route::get('/careers','careers')->name('careers');
+//!Rotta che gestisce le informazioni inserite nel form
+    Route::post('/careers/submit', 'careersSubmit')->name('careers.submit');    
+    
+});
+// Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 
-//Raggruppo le rotte che hanno lo stesso controller
+//Raggruppo le rotte che hanno Article Controller
 Route::controller(ArticleController::class)->group(function () {
     Route::get('/article/create', 'create')->name('article.create');
 
