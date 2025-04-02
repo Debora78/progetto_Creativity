@@ -23,7 +23,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     //!Questa funzione restituisce alla vista tutti gli articoli ordinati dal più recente
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->get();
+        $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view('article.index', compact('articles'));
     }
 
@@ -74,12 +74,12 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     }
     //Funzione che permette di visualizzare gli articoli di una determinata categoria passata come parametro
     public function byCategory(Category $category){
-        $articles = $category->articles()->orderBy('created_at', 'desc')->get();
+        $articles = $category->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view('article.by-category', compact('category', 'articles'));
     }
     //Funzione che permette di visualizzare gli articoli in base ad un nome dell'utente che ha creato l'articolo
     public function byUser(User $user){
-        $articles = $user->articles()->orderBy('created_at', 'desc')->get();
+        $articles = $user->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view('article.by-user', compact( 'user', 'articles'));
        
     }   

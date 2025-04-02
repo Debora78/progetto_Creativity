@@ -11,7 +11,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'body', 'image', 'user_id', 'category_id'];
+    protected $fillable = ['title', 'subtitle', 'body', 'image', 'user_id', 'category_id', 'is_accepted'];
 
     //funzione che mette in relazione gli articoli ad un solo utente
     public function user(){

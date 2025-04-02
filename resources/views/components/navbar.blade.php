@@ -25,9 +25,12 @@
                         </a>
                         <ul class="dropdown-menu">
                             @if (Auth::user()->is_admin)
-                            <li><a class="dropdown-item" href="{{routeU('admin.dashboard')}}">Dashboard Admin</a></li>
-                                
+                            <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard Admin</a></li>
                             @endif
+                            @if (Auth::user()->is_revisor)
+                            <li><a class="dropdown-item" href="{{route('revisor.dashboard')}}">Dashboard Revisor</a></li>
+                            @endif
+                                
                             <li>
                                 <a class="dropdown-item" href="#"
                                     onclick="event.preventDefault(); document.querySelector('#form-logout').submit();">Logout</a>

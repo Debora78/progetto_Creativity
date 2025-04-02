@@ -13,8 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     //!Registrato il nostro middleware custom inserendo un array middleware specificando il loro alias come chiave e il percorso del middleware che vogliamo registrare come valore. Questo middleware è disponibile ed utilizzabile all'interno del nostro progetto
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'admin'=>App\Http\Middleware\UserIsAdmin::class
+            'admin'=>App\Http\Middleware\UserIsAdmin::class,
+            'revisor'=>App\Http\Middleware\UserIsRevisor::class
         ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

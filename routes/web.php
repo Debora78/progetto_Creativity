@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\RevisorController;
 use Illuminate\Support\Facades\Route;
 
 //Raggruppo le rotte che hanno Public Controller
@@ -57,4 +58,14 @@ Route::middleware('admin')->group(function () {
     Route::patch('/admin/{user}/set-writer', [AdminController::class, 'setWriter'])->name('admin.setWriter');
 });
 
+//!Gruppo di rotte con middleware che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà il revisore alla sua dashboard personale.
+Route::middleware('revisor')->group(function () {
+    Route::get('/revisor/dashboard', [RevisorController::class, 'dashboard'])->name('revisor.dashboard');
+//!Rotta di tipo post che gestisce gli articoli accettati
+    Route::post('/revisor/{article}/accept', [RevisorController::class, 'acceptArticle'])->name('revisor.acceptArticle');
+//!Rotta di tipo post che gestisce gli articoli rifiutati
+    Route::post('/revisor/{article}/reject', [RevisorController::class, 'rejectArticle'])->name('revisor.rejectArticle');
+//!Rotta di tipo post che gestisce gli articoli da revisionare
+    Route::post('/revisor/{article}/undo', [RevisorController::class, 'undoArticle'])->name('revisor.undoArticle');
+});
 
