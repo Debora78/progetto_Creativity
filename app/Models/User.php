@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        //Aggiunte le nuove colonne prima di fare la migrazione
+        'is_admin',
+        'is_revisor',        
+        'is_writer',
     ];
 
     /**
