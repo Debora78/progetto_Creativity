@@ -12,14 +12,25 @@
     <section class="container my-5">
         <div class="row">
             <div class="col-12 col-md-6">
-                <form action="#" method="" class="card p-5 shadow">
+                <form action="{{route('careers.submit')}}" method="POST" class="card p-5 shadow">
+                    @csrf
                     <div class="mb-3">
                         <label for="role" class="form-label">Per quale ruolo ti stai candidando?</label>
                         <select name="role" id="role" class="form-control">
-                            <option value="" selected disabled>Seleziona un ruolo"></option>
-                            <option value="admin">Amministratore"></option>
-                            <option value="revisore">Revisore"</option>
+                            <option value="" selected disabled>Seleziona un ruolo</option>
+
+                            @if (!Auth::user()->is_admin)
+                            <option value="admin">Amministratore</option>
+                            @endif
+
+                            @if (!Auth::user()->is_revisor)
+                            <option value="revisor">Revisore</option>
+                            @endif
+
+                            @if (!Auth::user()->is_writer)
                             <option value="writer">Redattore</option>
+                            @endif
+                                
                         </select>
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>
@@ -27,9 +38,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="email1" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email"
-                            value="{{ Auth::user()->email }}" disabled>
+                            value="{{ Auth::user()->email }}" @readonly(true)>
+                            {{-- @readonly(true) rende il campo in sola lettura, non modificabile...ho utilizzato questa direttiva perché disabled non mi escludeva la email --}}
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

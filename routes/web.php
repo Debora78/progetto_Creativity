@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //Raggruppo le rotte che hanno Public Controller
 Route::controller(PublicController::class)->group(function () {
 //!rotta che riporta alla homepage
-    Route::get('/','hompage')->name('homepage'); 
+    Route::get('/','homepage')->name('homepage'); 
 //!rotta che riporta alla pagina careers per scegliere il ruolo per cui fare richiesta
     Route::get('/careers','careers')->name('careers');
 //!Rotta che gestisce le informazioni inserite nel form

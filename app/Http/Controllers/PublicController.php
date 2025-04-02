@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Mail\CareerRequestMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -31,6 +34,7 @@ class PublicController extends Controller implements HasMiddleware
    //con questa funzione prenderà i dati dalla request e li validiamo
    public function careersSubmit(Request $request)
    {
+      
       $request->validate([
          'role' => 'required',
          'email' => 'required|email',
@@ -38,5 +42,35 @@ class PublicController extends Controller implements HasMiddleware
 
 
       ]);
+
+      //!Accediamo ai dati dell'utente loggato che fa la richiesta, poi prendiamo le info che inserisce nel form tramite la request e tramite il metodo compact() le compattiamo in un'unica variabile. Poi, inviamo la mail con le info che ci ha inviato l'utente all'indirizzo di un amministratore della piattaforma.
+      //In base al ruolo selezionato dall'utente , tramite uno switch() settiamo a NULL la colonna corrispondente nella tab users.  Poi aggiorniamo il record dell'utente e lo rimandiamo alla homepage con un messaggio di successo
+
+      $user = Auth::user();
+      $role = $request->role;
+      $email = $user->email;
+      $message = $request->message;
+      $info = compact('role', 'email', 'message');
+
+      Mail::to('admin@admin.it')->send(new CareerRequestMail($info));
+
+      switch ($role) {
+         case 'admin':
+            $user->is_admin = NULL;
+            break;
+         case 'revisor':
+            $user->is_revisor = NULL;
+            break;
+         case 'writer':
+            $user->is_writer = NULL;
+            break;
+      }
+
+      $user->update();
+      
+      return redirect(route('homepage'))->with('message', 'Mail inviata con successo');
+         
    }
-}
+   
+}  
+
