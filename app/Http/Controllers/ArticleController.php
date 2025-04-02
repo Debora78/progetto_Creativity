@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Article;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -60,7 +61,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
         'user_id' => Auth::user()->id
        ]);
        //Re-indirizziamo l'utente alla homepage, dandogli un feedback visivo con un messaggio di successo
-       return redirect('homepage')->with('message', 'Articolo creato con successo');
+       return redirect('/')->with('message', 'Articolo creato con successo');
     }
 
     /**
@@ -76,6 +77,12 @@ class ArticleController extends Controller implements HasMiddleware //implementi
         $articles = $category->articles()->orderBy('created_at', 'desc')->get();
         return view('article.by-category', compact('category', 'articles'));
     }
+    //Funzione che permette di visualizzare gli articoli in base ad un nome dell'utente che ha creato l'articolo
+    public function byUser(User $user){
+        $articles = $user->articles()->orderBy('created_at', 'desc')->get();
+        return view('article.by-user', compact( 'user', 'articles'));
+       
+    }   
 
     /**
      * Show the form for editing the specified resource.

@@ -19,8 +19,11 @@ Route::controller(ArticleController::class)->group(function () {
     //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare
     Route::get('/article/show/{article}', 'show')->name('article.show');
 
-    //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare
+    //!Rotta di tipo get parametrica che accetta un parametro cioè l'articolo che l'utente vuole visualizzare nella sua ricerca
     Route::get('/article/category/{category}', 'byCategory')->name('article.byCategory');
+
+    //!Rotta di tipo get parametrica che accetta un parametro cioè il nome di chi ha creato gli articoli
+    Route::get('/article/user/{user}', 'byUser')->name('article.byUser');
 
 });
 
