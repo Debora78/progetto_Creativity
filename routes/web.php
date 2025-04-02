@@ -49,6 +49,12 @@ Route::controller(ArticleController::class)->group(function () {
 //!Gruppo di rotte che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà l'adminalla sua dashboard personale.
 Route::middleware('admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    //!Rotta di tipo patch parametrica che gestisce le richieste per diventare amministratori
+    Route::patch('/admin/{user}/set-admin', [AdminController::class, 'setAdmin'])->name('admin.setAdmin');
+    //!Rotta di tipo patch parametrica che gestisce le richieste per diventare revisori
+    Route::patch('/admin/{user}/set-revisor', [AdminController::class, 'setRevisor'])->name('admin.setRevisor');
+    //!Rotta di tipo patch parametrica che gestisce le richieste per diventare redattori
+    Route::patch('/admin/{user}/set-writer', [AdminController::class, 'setWriter'])->name('admin.setWriter');
 });
 
 

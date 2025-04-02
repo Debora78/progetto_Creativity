@@ -11,7 +11,8 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active"  aria-current="page"  href="{{ route('article.index') }}">Tutti gli Articoli</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('article.index') }}">Tutti gli
+                        Articoli</a>
                 </li>
 
                 {{-- Ciò che vedrà l'utente loggato cioè il suo nome e il form di logout --}}
@@ -23,6 +24,10 @@
                             Ciao {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu">
+                            @if (Auth::user()->is_admin)
+                            <li><a class="dropdown-item" href="{{routeU('admin.dashboard')}}">Dashboard Admin</a></li>
+                                
+                            @endif
                             <li>
                                 <a class="dropdown-item" href="#"
                                     onclick="event.preventDefault(); document.querySelector('#form-logout').submit();">Logout</a>
