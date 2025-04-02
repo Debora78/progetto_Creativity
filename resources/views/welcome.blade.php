@@ -8,8 +8,12 @@
                     <div class="alert alert-success">
                         {{ session('message') }}
                 @endif
+                @if (session('alert'))
+                    <div class="alert alert-danger">
+                        {{ session('alert') }}
+                    </div>
+                @endif
             </div>
-        </div>
     </section>
     {{-- fine sezione titolo --}}
 
@@ -32,17 +36,18 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <p>Redatto il : {{ $article->created_at->format('d/m/Y') }} <br>
-                                da : <a href="{{ route('article.byUser', $article->user) }}">{{ $article->user->name }}</a></p>
-                            <a href="{{route('article.show', $article)}}" class="btn btn-outline-secondary">Leggi
+                                da : <a
+                                    href="{{ route('article.byUser', $article->user) }}">{{ $article->user->name }}</a>
+                            </p>
+                            <a href="{{ route('article.show', $article) }}" class="btn btn-outline-secondary">Leggi
                             </a>
                         </div>
                     </div>
                 </div>
-                
             @endforeach
-                                
+
         </div>
-        
+
     </section>
     {{-- fine sezione  cards --}}
 

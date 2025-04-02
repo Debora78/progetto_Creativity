@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,9 @@ Route::controller(ArticleController::class)->group(function () {
  //Questa Rotta gestisce i dati dell'utente e li salva nel DB
 // Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
 
-
+//!Gruppo di rotte che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà l'adminalla sua dashboard personale.
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
 
 
