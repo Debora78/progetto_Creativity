@@ -92,5 +92,10 @@ Route::middleware('writer')->group(function () {
  Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
 //!Rotta di tipo get che conduce alla dashboard del Redattore
  Route::get('/writer/dashboard', [WriteController::class, 'dashboard'])->name('writer.dashboard');
-
+//!Rotta di tipo get parametrica che gestisce la modifica dell'articolo
+ Route::get('/article/edit/{article}', [ArticleController::class, 'edit'])->name('article.edit');
+//!Rotta di tipo put parametrica che gestisce l'aggiornamento dell'articolo
+Route::put('/article/update/{article}', [ArticleController::class, 'update'])->name('article.update');
+//!Rotta di tipo delete parametrica che gestisce la cancellazione dell'articolo
+Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 });

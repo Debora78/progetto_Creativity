@@ -9,6 +9,12 @@
             </div>
         </div>
     </section>
+    @if (session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+    
+@endif
     {{-- Fine sezione titolo --}}
 
 

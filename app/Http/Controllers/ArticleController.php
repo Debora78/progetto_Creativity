@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -112,15 +113,65 @@ class ArticleController extends Controller implements HasMiddleware //implementi
      */
     public function edit(Article $article)
     {
-        //
+        //Per permettere solo al redattoreche ha scritto un articolo di poter raggiungere la pagina di modifica, controlliamo se l'id dell'utente loggato è uguale all'id dell'utente che ha scritto l'articolo. Se i 2 id corrispondono allora l'utente visualizzerà quella pagina, altrimenti lo blocchiamo con un messaggio
+
+        if(Auth::user()->id == $article->user_id){
+            return view('article.edit', compact('article'));
+        }
+            return redirect()->route('homepage')->with('alert', 'Accesso non consentito');
     }
+   
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Article $article)
     {
-        //
+       $request->validate([
+       //!In $request->validate(), nel campo title, abbiamo fatto un'aggiunta alla regola unique che ci consente di ignorare l'articolo che stiamo modificando.
+       //Questa regola controlla se un dato elemento è già presente nel DB, e quindi ci avrebbe accettato solo le modifiche in quel campo che, magari, non vogliamo modificare
+        'title' => 'required|min:5|unique:articles,title,' . $article->id,
+        'subtitle' => 'required|min:5',
+        'body' => 'required|min:10',
+        'image' => 'image',
+        'category' => 'required',
+        'tags' => 'required'
+       ]);
+
+       $article->update([
+        'title' => $request->title,
+        'subtitle' => $request->subtitle,
+        'body' => $request->body,
+        'category_id' => $request->category,
+        ]);
+
+        if($request->image){
+            Storage::delete($article->image);
+            $article->update([
+                'image' => $request->file('image')->store('images', 'public'),
+            ]);
+        }
+        //!Con explode() dividiamo la stringa $request->tags in un array con i tag arrivati dalla request
+        $tags = explode(',', $request->tags);
+
+        foreach($tags as $i => $tag){
+            $tags[$i] = trim($tag);
+        }
+
+        $newTags = [];//!Array di appoggio
+        //!Nel foreach utilizziamo updateOrCreate() che utilizziamo nella funzione store() ma aggiungendo che gli id dei tag inviati vengano salvati nell'array di appoggio.
+        //Gli id salvati in questo array vengono poi passati alla funzione sync() che ci gestisce automaticamente la relazione ManyToMany tra Article e Tag con tutti gli id presenti nella'array, effettuerà un attach() invece con quelli non presenti effettuerà un detach()
+        //!Ciò ci permette di tenere tutte le relazioni in ordine
+        foreach($tags as $tag){
+            $newTag = Tag::updateOrCreate([
+                'name' => strtolower($tag)
+            ]);
+            $newTags[] = $newTag->id;
+        }
+
+        $article->tags()->sync($newTags);
+        return redirect(route('writer.dashboard'))->with('message', 'Articolo modificato con successo');
+        
     }
 
     /**
@@ -128,6 +179,9 @@ class ArticleController extends Controller implements HasMiddleware //implementi
      */
     public function destroy(Article $article)
     {
-        //
-    }
+       foreach($article->tags as $tag){
+        $article->tags()->detach($tag);
+       }
+      $article->delete();
+      return redirect()->back()->with('message', 'Articolo eliminato con successo');
 }
