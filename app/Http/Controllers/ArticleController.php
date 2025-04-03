@@ -15,7 +15,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
 {
     //!Inserito metodo statico middleware che ritorna un array di middleware, nel nostro caso inseriamo il middleware di autenticazione ('Auth') a tutti i metodi nel controlle ad eccezione dell'index (visualizzazione di tutti gli articoli) e del show (pagina di dettaglio di un singolo articolo) -- index e show sono visibili anche agli utenti ospiti
     public static function middleware(){
-        return [new Middleware('auth', except: ['index', 'show'])];
+        return [new Middleware('auth', except: ['index', 'show', 'byCategory', 'byUser', 'articleSearch'])];
     }
     /**
      * Display a listing of the resource.
@@ -84,6 +84,13 @@ class ArticleController extends Controller implements HasMiddleware //implementi
        
     }   
 
+    //Con questa funzione diciamo al DB di recuperare tutti quegli articoli che hanno nel loro contenuto la parola cercata dall'utente tramite un input con nome query, prendendo però solo quelli effettivamente pubblcati e ordinati dal più recente
+    public function articleSearch(Request $request){
+        $query = $request->input('query');
+        $articles = Article::search($query)->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
+        return view('article.search-index', compact('articles', 'query'));
+
+    }
     /**
      * Show the form for editing the specified resource.
      */

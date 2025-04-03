@@ -33,6 +33,9 @@ Route::controller(ArticleController::class)->group(function () {
     //!Rotta di tipo get parametrica che accetta un parametro cioè il nome di chi ha creato gli articoli
     Route::get('/article/user/{user}', 'byUser')->name('article.byUser');
 
+    //!Rotta di tipo get che gestisce i dati inseriti nella barra di ricerca
+    Route::get('/article/search', 'articleSearch')->name('article.search');
+
 });
 
    
