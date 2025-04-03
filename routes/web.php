@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RevisorController;
+use App\Http\Controllers\WriteController;
 use Illuminate\Support\Facades\Route;
 
 //Raggruppo le rotte che hanno Public Controller
@@ -83,10 +84,13 @@ Route::middleware('revisor')->group(function () {
     Route::post('/revisor/{article}/undo', [RevisorController::class, 'undoArticle'])->name('revisor.undoArticle');
 });
 
+//WRITER
 Route::middleware('writer')->group(function () {
-  //!Questa Rotta gestisce la creazione di un nuovo articolo  
+//!Rotta di tipo get che gestisce la creazione di un nuovo articolo  
     Route::get('/article/create',[ArticleController::class, 'create'] )->name('article.create');
- //!Questa Rotta gestisce i dati dell'utente e li salva nel DB
+//!Rotta di tipo post che gestisce i dati dell'utente e li salva nel DB
  Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
+//!Rotta di tipo get che conduce alla dashboard del Redattore
+ Route::get('/writer/dashboard', [WriteController::class, 'dashboard'])->name('writer.dashboard');
 
 });

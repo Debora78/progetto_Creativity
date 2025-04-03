@@ -30,6 +30,9 @@
                             @if (Auth::user()->is_revisor)
                             <li><a class="dropdown-item" href="{{route('revisor.dashboard')}}">Dashboard Revisor</a></li>
                             @endif
+                            @if (Auth::user()->is_writer)
+                            <li><a class="dropdown-item" href="{{route('writer.dashboard')}}">Dashboard Writer</a></li>
+                            @endif
                                 
                             <li>
                                 <a class="dropdown-item" href="#"
