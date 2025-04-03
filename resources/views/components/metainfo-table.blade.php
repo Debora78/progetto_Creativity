@@ -35,6 +35,25 @@
                             <button type="submit" class="btn btn-danger">Elimina</button>
                         </form>
                     </td>
+                    @else
+                    <td>
+                        <form action="{{route('admmin.editCategory', ['category' =>$metaInfo])}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="text" value="{{$metaInfo->name}}" name="name" placeholder="Nuovo nome categoria"
+                                class="form-control w-50 d-inline">
+                            <button type="submit" class="btn btn-secondary">Aggiorna</button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <form action="{{route('admmin.deleteCategory', ['category' =>$metaInfo])}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </td>
+
                 @endif
                 <td>
 

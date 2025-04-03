@@ -40,7 +40,7 @@ Route::controller(ArticleController::class)->group(function () {
 
    
 
-
+//SINGOLE ROTTE CHE HO RAGGRUPPATO SOPRA
 // Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
 
  //Rotta di tipo get per visualizzare tutti gli annunci inseriti
@@ -49,6 +49,8 @@ Route::controller(ArticleController::class)->group(function () {
  //Questa Rotta gestisce i dati dell'utente e li salva nel DB
 // Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
 
+
+//ADMIN
 //!Gruppo di rotte che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà l'adminalla sua dashboard personale.
 Route::middleware('admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -62,8 +64,14 @@ Route::middleware('admin')->group(function () {
     Route::put('admin/edit/tag/{tag}', [AdminController::class, 'editTag'])->name('admin.editTag');
     //!Rotta di tipo delete parametrica che gestisce la cancellazione di un tag
     Route::delete('/admin/delete/tag/{tag}', [AdminController::class, 'deleteTag'])->name('admin.deleteTag');
+    //!Rotta di tipo put parametrica che gestisce la modifica di una categoria
+    Route::put('admin/edit/category/{category}', [AdminController::class, 'editCategory'])->name('admin.editCategory');
+    //!Rotta di tipo delete parametrica che gestisce la cancellazione di una categoria
+    Route::delete('/admin/delete/category/{category}', [AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    //!Rotta di tipo post che gestisce la creazione di una nuova categoria
+    Route::post('/admin/category/store', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
 });
-
+//REVISOR
 //!Gruppo di rotte con middleware che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà il revisore alla sua dashboard personale.
 Route::middleware('revisor')->group(function () {
     Route::get('/revisor/dashboard', [RevisorController::class, 'dashboard'])->name('revisor.dashboard');
