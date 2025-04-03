@@ -58,6 +58,10 @@ Route::middleware('admin')->group(function () {
     Route::patch('/admin/{user}/set-revisor', [AdminController::class, 'setRevisor'])->name('admin.setRevisor');
     //!Rotta di tipo patch parametrica che gestisce le richieste per diventare redattori
     Route::patch('/admin/{user}/set-writer', [AdminController::class, 'setWriter'])->name('admin.setWriter');
+    //!Rotta di tipo put parametrica che gestisce la modifica di un tag
+    Route::put('admin/edit/tag/{tag}', [AdminController::class, 'editTag'])->name('admin.editTag');
+    //!Rotta di tipo delete parametrica che gestisce la cancellazione di un tag
+    Route::delete('/admin/delete/tag/{tag}', [AdminController::class, 'deleteTag'])->name('admin.deleteTag');
 });
 
 //!Gruppo di rotte con middleware che verrà automaticamente protetto dal middleware creato senza utilizzare la funzione statica middleware() nel controller. La rotta porterà il revisore alla sua dashboard personale.

@@ -53,6 +53,19 @@
 </section>
 {{-- Fine sezione  richieste di ruolo di Redattore --}}
 
+<hr>
+{{-- Inizio sezione  tutti i tags --}}
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2>Tutti i tags</h2>
+            <x-metainfo-table :metaInfos="$tags" metaType="tags"/>
+        </div>
+    </div>
+</section>
+{{-- Fine sezione  tutti i tags --}}
+
+
 
 
 
