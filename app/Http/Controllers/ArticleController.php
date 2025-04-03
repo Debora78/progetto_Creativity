@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Article;
-use App\Models\Category;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\Middleware;
@@ -60,8 +61,23 @@ class ArticleController extends Controller implements HasMiddleware //implementi
         'category_id' => $request->category,
         'user_id' => Auth::user()->id
        ]);
+       //! Tramite la funzione explode()  abbiamo ottenuto da una stringa (l'input text 'tags')un array di elementi. Questa funzione accetta 2 parametri il primo è l'elemento divisore (in questo caso è la virgola) e il secondo è la stringa da dividere.
+       $tags = explode(',', $request->tags);
+       foreach($tags as $i => $tag){
+           $tags[$i] = trim($tag);
+       }
+
+       foreach($tags as $tag){
+        //! La funzione updateOnCreate() automaticamente fa un controllo nel DB: se il tag con quel nome non esiste, lo crea 
+        $newTag = Tag::updateOrCreate([
+        //! Con il metodo strlower() rendiamo la stringa tutta minuscola, in caso contrario fa un semplice update. In questo modo la tabella tags sarà pulita e senza ripetizioni
+            'name' => strtolower($tag)
+        ]);
+        //! La funzione attach() crea effettivamente il record all'interno dalla tabella pivot e crea la relazione
+        $article->tags()->attach($newTag);
+       }
        //Re-indirizziamo l'utente alla homepage, dandogli un feedback visivo con un messaggio di successo
-       return redirect('/')->with('message', 'Articolo creato con successo');
+       return redirect(route('homepage'))->with('message', 'Articolo creato con successo');
     }
 
     /**
