@@ -19,7 +19,7 @@ return new class extends Migration
         });
         //Array delle nostre categorie di default
         $categories = [
-            'politica', 'economia', 'food&drink', 'sport', 'intrattenimento', 'tech'
+            'Gioielli', 'Accessori', 'Abbigliamento', 'Arredamento', 'Decorazioni', 'Giocattoli'
         ];
         //Tramite questo foreach inseriamo le categorie nel database
         foreach($categories as $category){

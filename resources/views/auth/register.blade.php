@@ -11,7 +11,7 @@
 
 
     {{-- sezione form --}}
-    <section class="container-fluid p-5">
+    <section class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <form action="{{ route('register') }}"method="POST" class="card p-5 shadow">

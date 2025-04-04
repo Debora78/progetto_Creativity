@@ -13,7 +13,7 @@
 <section class="container my-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <form action="{{route('article.update', $article)}}}}" method="POST" class="card p-5 shadow" enctype="multipart/form-data">
+            <form action="{{route('article.update', $article)}}" method="POST" class="card p-5 shadow" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
             <div class="mb-">
@@ -57,10 +57,10 @@
                     
                 @enderror
             </div>
-            {{-- Nell'input dedicato ai tags, recuperiamo la collezione dei tags legata all'articolo e poi utilizziamo la funzione inplode() per trasformare tutti gli elementi che ci interessano (ovvero il name del tag) in una stringa --}}
+            {{-- Nell'input dedicato ai tags, recuperiamo la collezione dei tags legata all'articolo e poi utilizziamo la funzione implode() per trasformare tutti gli elementi che ci interessano (ovvero il name del tag) in una stringa --}}
             <div class="mb-"></div>
                 <label for="tags" class="form-label">Tags</label>
-                <input type="text" name="tags" class="form-control" id="tags" value="{{$article->tags->inplode('name', ',' )}}">
+                <input type="text" name="tags" class="form-control" id="tags" value="{{$article->tags->implode('name', ', ' )}}">
                 <span class="small text-muted fst-italic">Divivi ogni tag con una virgola</span></span>
                 @error('tags')
                 <span class="text-danger">{{$message}}</span>
@@ -68,7 +68,7 @@
             </div>
             <div class="mb-">
                 <label for="body" class="form-label">Corpo del testo</label>
-                <textarea name="body" class="form-control" id="body" cols="30" rows="7">{{$article->body}}"></textarea>
+                <textarea name="body" class="form-control" id="body" cols="30" rows="7">{{$article->body}}</textarea>
                 @error('body')
                 <span class="text-danger">{{$message}}</span>
                 @enderror

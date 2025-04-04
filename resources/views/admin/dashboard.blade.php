@@ -69,7 +69,7 @@
             <div class="col-12 ">
                 <div class="d-flex justify-content-between">
                     <h2>Tutte le categorie</h2>
-                    <form action="{{ route('admmin.createCategory') }}" method="POST" class="w-50 d-flex m-3">
+                    <form action="{{ route('admin.storeCategory') }}" method="POST" class="w-50 d-flex m-3">
                         @csrf
                         <input type="text" name="name" placeholder="Inserisci una nuova categoria"
                             class="form-control me-2">

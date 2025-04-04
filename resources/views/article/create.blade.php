@@ -59,7 +59,7 @@
 
                     <div class="mb-3 ">
                         <label for="body" class="form-label">Corpo del testo</label>
-                        <textarea name="body" id="body" cols="30" rows="7" class="form-control"></textarea>
+                        <textarea name="body" id="body" cols="30" rows="7" class="form-control">{{old('body')}}</textarea>
                         @error('body')
                             {{-- in caso di errore stampa il messaggio di errore --}}
                             <span class="text-danger">{{$message}}</span>
@@ -69,7 +69,7 @@
                     <div class="mb-3">
                         <label for="tags" class="form-label">Tags</label>
                         <input type="text" class="form-control" id="tags" value="{{old('tags')}}" name="tags">
-                        <span class="small text-muted fst-italic">Separa i tag con una virgola</span>
+                        <span class="small text-muted fst-italic">Dividi oghi tag con una virgola</span>
                         @error('tags')
                             {{-- in caso di errore stampa il messaggio di errore --}}
                             <span class="text-danger">{{$message}}</span>
@@ -78,7 +78,7 @@
 
                     <div class="mt-3 d-flex justify-content-center flex-column align-items-center">
                     <button type="submit" class="btn btn-outline-secondary">Inserisci Articolo</button>
-                    <a href="{{route('homepage')}}" class="text-secondary -mt-2">Torna alla home</a>
+                    <a href="{{route('homepage')}}" class="text-secondary mt-2">Torna alla home</a>
                     </div>
                 </form>
             </div>

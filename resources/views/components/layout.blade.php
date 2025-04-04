@@ -14,7 +14,7 @@
         {{ $slot }}
     </div>
 
-    <x-footer/>
+    <x-footer/> <!----richiamo il componente footer -->
 
     <script src="https://kit.fontawesome.com/09c4e03efc.js" crossorigin="anonymous"></script>
 

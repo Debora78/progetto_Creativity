@@ -21,6 +21,6 @@ class UserIsAdmin
             return $next($request);
         }
 
-        return redirect(route('homepage'))->with('alert', 'Non seiautorizato');
+        return redirect(route('homepage'))->with('alert', 'Non sei autorizato');
     }
 }

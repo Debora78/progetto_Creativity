@@ -34,15 +34,17 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Show the form for creating a new resource.
      */
+    //CREATE
     //La funzione create() ha il compito di ritornare la vista che conterrà il form di creazione dell'articolo. 
     public function create()
     {
         return view('article.create');
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.
      */
+    //STORE
     public function store(Request $request)
     {
         //Validazioni per ogni campo
@@ -88,6 +90,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Display the specified resource.
      */
+    //SHOW
     //La funzione show() ha il compito di ritornare la vista che conterrà il dettaglio di un singolo articolo.
     public function show(Article $article)
     {
@@ -107,6 +110,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     }
 
     //Con questa funzione diciamo al DB di recuperare tutti quegli articoli che hanno nel loro contenuto la parola cercata dall'utente tramite un input con nome query, prendendo però solo quelli effettivamente pubblcati e ordinati dal più recente
+    //ARTICLESEARCH
     public function articleSearch(Request $request)
     {
         $query = $request->input('query');
@@ -116,6 +120,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Show the form for editing the specified resource.
      */
+    //EDIT
     public function edit(Article $article)
     {
         //Per permettere solo al redattoreche ha scritto un articolo di poter raggiungere la pagina di modifica, controlliamo se l'id dell'utente loggato è uguale all'id dell'utente che ha scritto l'articolo. Se i 2 id corrispondono allora l'utente visualizzerà quella pagina, altrimenti lo blocchiamo con un messaggio
@@ -130,6 +135,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Update the specified resource in storage.
      */
+    //UPDATE
     public function update(Request $request, Article $article)
     {
         $request->validate([
@@ -182,6 +188,7 @@ class ArticleController extends Controller implements HasMiddleware //implementi
     /**
      * Remove the specified resource from storage.
      */
+    //DESTROY
     public function destroy(Article $article)
     {
         foreach ($article->tags as $tag) {

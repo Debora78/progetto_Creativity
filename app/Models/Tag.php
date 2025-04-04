@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    
     protected $fillable = ['name'];
 
 //Relazione tra un tag e molti articoli
@@ -13,4 +14,5 @@ class Tag extends Model
     {
         return $this->belongsToMany(Article::class);
     }
+
 }
