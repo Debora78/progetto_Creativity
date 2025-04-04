@@ -1,0 +1,99 @@
+:root{
+    /* colore kaki per lo sfondo del sito, sezioni secondarie e separazioni visiva di elementi  */
+    --color-p: rgb(203, 183, 160)
+    /* colore rosa pesca chiaro per i pulsanti, intestazioni, sfondo di sezioni importanti */
+    --color-s:rgb(250, 219, 218);
+    /* colore grigio antracite per il testo, le icone e i link */
+    --color-a: rgb(54, 69, 79);
+    /*colore grigio chiaro trasparente per le ombre che dona profondità e tridimensionalità per i box, img e i pulsanti ed anche per i titoli principali  */
+    --color-o:rbga(0,0,0,0.1)
+
+  
+    /* Font testi  */
+    --font-testi:font-family: "Montserrat", sans-serif;
+    /* Font card */
+    --font-card:font-family: "Merriweather", serif;
+    /* Font titolo principale */
+    --font-title:font-family:  "Playwrite MX Guides", cursive;
+        font-weight: 400;;
+ 
+}
+
+*{
+    font-family: var(--font-testi);
+}
+.main-title{
+    font-family: var(--font-title);
+}
+/*! HEADER */
+.header-with-curtain {
+    position: relative; /* Necessario per poter posizionare i sipari in modo assoluto al suo interno. */
+    overflow: hidden; /*  assicura che le parti dei sipari che si muovono fuori non siano visibili inizialmente. */
+    height: 500px; /* Imposta l'altezza desiderata per l'header */
+    width: 100%;
+  }
+  /* .header-background è posizionato in modo assoluto per coprire l'intero header e ha lo sfondo impostato. Lo z-index inferiore lo pone sotto i sipari */
+  .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/public/media/img_header.jpg'); /* Sostituisci con il tuo percorso */
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* Assicura che lo sfondo sia sotto i sipari inizialmente */
+    display: flex; /* Facoltativo: per centrare il testo */
+    flex-direction: column; /* Facoltativo */
+    justify-content: center; /* Facoltativo */
+    align-items: center; /* Facoltativo */
+    color: white; /* Facoltativo: per il testo sopra lo sfondo */
+    text-align: center; /* Facoltativo */
+  }
+  /* .curtain è posizionato in modo assoluto, ha una larghezza del 50% e un colore di sfondo. Lo z-index superiore lo pone sopra lo sfondo. */
+  .curtain {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #333; /* Colore del sipario */
+    z-index: 2; /* Assicura che i sipari siano sopra lo sfondo inizialmente */
+    transform-origin: top center; /* transform-origin: top center è cruciale per far sì che la trasformazione (lo spostamento orizzontale) avvenga dal centro verticale del bordo superiore. */
+  }
+  /* Le classi .open-left e .open-right e le relative @keyframes definiscono l'animazione di apertura. translateX(-100%) sposta il sipario sinistro completamente a sinistra, e translateX(100%) sposta quello destro completamente a destra. forwards fa sì che lo stato finale dell'animazione venga mantenuto. */
+  .curtain-left {
+    left: 0;
+    transform: translateX(0); /* Posizione iniziale */
+  }
+  
+  .curtain-right {
+    right: 0;
+    transform: translateX(0); /* Posizione iniziale */
+  }
+  
+  /* Stili per l'animazione (vedi punto 3) */
+  .curtain.open-left {
+    animation: openLeftCurtain 1s forwards; /* Esempio di durata e timing */
+  }
+  
+  .curtain.open-right {
+    animation: openRightCurtain 1s forwards; /* Esempio di durata e timing */
+  }
+  
+  @keyframes openLeftCurtain {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes openRightCurtain {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
